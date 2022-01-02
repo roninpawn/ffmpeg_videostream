@@ -3,7 +3,7 @@
 
 This script requires Karl Kroening's 'ffmpeg-python' library. (https://github.com/kkroening/ffmpeg-python)
 
-##Basic Usage
+## Basic Usage
 ```python
 from ffmpeg_videostream import VideoStream
 
@@ -14,7 +14,7 @@ while True:
     if eof: break
 ```
 
-##Methods
+## Methods
 
 ---
 
@@ -34,8 +34,8 @@ other formats as needed. (See 'Examples')
 **.config** (_start_hms, end_hms, crop_rect, output_resolution_)
 - start_hms : Read frames starting from this _time*_ in the video : _("seek" equivalent)_
 - end_hms : Stop reading frames at this _time*_ in the video
-  - _HMS times are composed as `[HH:]MM:SS[.m...]` or `S+[.m...][s|ms|us]`
-    (see https://ffmpeg.org/ffmpeg-utils.html#time-duration-syntax)_
+  - _HMS times are composed as `[HH:]MM:SS[.m...]` or `S+[.m...][s|ms|us]`_
+  - _(see https://ffmpeg.org/ffmpeg-utils.html#time-duration-syntax)_
 - crop_rect : Accepts a list / tuple as `[x, y, width, height]` for cropping the video's input
 - output_resolution :  Accepts a list / tuple as `[width, height]` declaring the final scaling of the video, forcing 
 the output to match this resolution
@@ -53,14 +53,14 @@ video.config(crop_rect=(0,0,720,480))
 ---
 
 **.open_stream** (_showinfo, loglevel, hide_banner, silence_even_test_)
-- showinfo : When `True` invokes ffmpeg's '_showinfo_' filter providing details about each individual frame as it is read.
+- showinfo : When `True` invokes ffmpeg's '_showinfo_' filter providing details about each frame as it is read.
   - (see: https://ffmpeg.org/ffmpeg-filters.html#showinfo)
 - loglevel : Sets ffmpeg's 'stderr' output to include/exclude certain data being printed to console.
   - (see: https://ffmpeg.org/ffmpeg.html#Generic-options )
 - hide_banner : Shows/hides ffmpeg's startup banner.
-  - Note: Various 'loglevel' settings implicitly silence this banner. And when 'showinfo' is invoked no 'loglevel' 
+  - Note: Various 'loglevel' settings implicitly silence this banner. When 'showinfo' is invoked no 'loglevel' 
 output will be printed to console.
-- silence_even_test : When `True` suppresses console warnings that an invalid output resolution has been requested.
+- silence_even_test : When `True` suppresses console warnings that an invalid resolution has been requested.
 
 **Note:** Invoking 'showinfo' reduces the maximum speed raw frame data can ingest. In most rendering instances the speed
 reduction is immeasurable due to other blocking processes. But for the raw acquisition of frames it can be significant.
@@ -82,26 +82,24 @@ acquire a 24-bit RGB / BGR encoded frame than to acquire the 12-bit YUV pixels a
 
 ---
 
-**.close** ()
-- Closes the open stream
-    - **Note:** The same VideoStream object may be closed and reopened with .open_stream() repeatedly.
+**.shape** () : Returns the final output resolution of the video in a list : `[width, height]`
 
 ---
 
-**.shape** ()
-- Returns the final output resolution of the video in a list : `[width, height]`
+**.eof** () : Boolean indicating whether the end of the file has been reached
 
 ---
 
-**.eof** ()
-- Boolean indicating whether the end of the file has been reached.
+**.close** () : Closes the open stream
+
+
 
 ---
 
 **.showinfo** (key)
 - Called without a ``key``, returns the complete line of 'showinfo' data as a string
 - Called with ``key``, searches 'showinfo' for a match and returns the value, or `None`
-  - (see: https://ffmpeg.org/ffmpeg-filters.html#showinfo )
+  - _(see: https://ffmpeg.org/ffmpeg-filters.html#showinfo )_
 
 ```python
 current_frame_number = video.showinfo("n")
@@ -111,12 +109,12 @@ current_frame_number = video.showinfo("n")
 ---
 
 **.inspect** (_attrib_)
-- `.inspect()` returns a `dict()` containing all data found in the 'video' stream of ffprobe
+- Returns a `dict()` containing all data found in the 'video' stream of ffprobe if no attrib declared.
 - `.inspect("something")` returns the value of "something" from the `dict()` or `None` if not found.
 
 ## Examples
 
-###Timing raw frame access speed
+### Timing raw frame access speed
 ```python
 from ffmpeg_videostream import VideoStream
 from time import time
@@ -137,7 +135,7 @@ print(f"\r\nRead {frames} frames at {video.shape()} resolution from '{video.path
 print(f"Effective read rate of {round(frames / timer)} frames per second.")
 ```
 
-###Rendering output to PyGame
+### Rendering output to PyGame
 ```python
 from ffmpeg_videostream import VideoStream
 import numpy as np
