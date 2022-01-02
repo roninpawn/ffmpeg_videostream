@@ -1,7 +1,9 @@
 # FFmpeg VideoStream
 ***High speed video frame access in Python, using FFmpeg and FFshow***
 
-This script requires Karl Kroening's 'ffmpeg-python' library. (https://github.com/kkroening/ffmpeg-python)
+This script requires:
+- Karl Kroening's 'ffmpeg-python' library. (https://github.com/kkroening/ffmpeg-python)
+- ffmpeg.exe + ffprobe.exe in the calling directory or accessible by PATH (https://www.ffmpeg.org/download.html)
 
 ## Basic Usage
 ```python
