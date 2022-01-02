@@ -16,8 +16,6 @@ while True:
 
 ## Methods
 
----
-
 **VideoStream** (_path, color, bytes_per_pixel_)
 
 - path : The path to your video file as a string : `'/videos/my_video.mp4'`
@@ -112,7 +110,7 @@ current_frame_number = video.showinfo("n")
 - Returns a `dict()` containing all data found in the 'video' stream of ffprobe if no attrib declared.
 - `.inspect("something")` returns the value of "something" from the `dict()` or `None` if not found.
 
-## Examples
+# Examples
 
 ### Timing raw frame access speed
 ```python
