@@ -26,9 +26,9 @@ class VideoStream:
         probe = ffmpeg.probe(self.path)
         self._inspect = next((stream for stream in probe['streams'] if stream['codec_type'] == 'video'), None)
 
-        self._shape = [self._inspect['width'], self._inspect['height']]
+        self._shape = (self._inspect['width'], self._inspect['height'])
         self._trim = {}
-        self._crop = [0, 0, *self._shape]
+        self._crop = (0, 0, *self._shape)
 
         self._color = color
         self._bpp = bytes_per_pixel
@@ -80,9 +80,9 @@ class VideoStream:
         if start_hms is not None: self._trim['ss'] = start_hms
         if end_hms is not None: self._trim['to'] = end_hms
         if crop_rect is not None:
-            self._crop = crop_rect
-            self._shape = [crop_rect[2] - crop_rect[0], crop_rect[3] - crop_rect[1]]
-        if output_resolution is not None: self._shape = output_resolution
+            self._crop = tuple(crop_rect)
+            self._shape = (crop_rect[2] - crop_rect[0], crop_rect[3] - crop_rect[1])
+        if output_resolution is not None: self._shape = tuple(output_resolution)
 
     """
     .open_stream()
@@ -240,7 +240,7 @@ class VideoStream:
             w, h = self._shape
             if w % 2 > 0: w -= 1
             if h % 2 > 0: h -= 1
-            out = [w, h]
+            out = (w, h)
             if out != self._shape:
                 if not silent:
                     warn("-\n\nVideoStream: 'width/height' VALUES OF 'shape()' ARE NOT EVEN NUMBERS & BPP IS FLOAT!\n"
