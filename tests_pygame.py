@@ -50,7 +50,8 @@ def to_scale_pygame(frame):
     pygame.display.update()
 
 
-path = "../720_test.mp4"  # Provide path to a test video. (<2 minute duration recommended)
+# Provide path to a test video. (<2 minute duration recommended)
+path = "test_video.mp4"
 
 print("\r\n--- TEST #1: FFmpeg > RGB24 > RAW (no draw)")
 video = VideoStream(path, "rgb24", 3)   # FFmpeg converts source and outputs RGB 24-bit frames
