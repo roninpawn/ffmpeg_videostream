@@ -152,11 +152,11 @@ screen = pygame.display.set_mode(video.shape())
 
 while True:
     eof, frame = video.read()
-    # Shape bytestream into YUV 4:2:0 numpy array, then use OpenCV to convert from YUV to BGR.
+    # Shape bytestream into YUV 4:2:0 numpy array, then use OpenCV to convert from YUV to RGB.
     arr = np.frombuffer(frame, np.uint8).reshape(video.shape()[1] * 3//2, video.shape()[0])
-    img = cv2.cvtColor(arr, cv2.COLOR_YUV2BGR_I420)
+    img = cv2.cvtColor(arr, cv2.COLOR_YUV2RGB_I420)
 
-    img = pygame.image.frombuffer(img, video.shape(), "BGR")
+    img = pygame.image.frombuffer(img, video.shape(), "RGB")
     screen.blit(img, (0, 0))    # Copy img onto the screen at coordinates: x=0, y=0
     pygame.display.update()
     pygame.event.pump()     # Makes pygame's window draggable / non-blocking.
